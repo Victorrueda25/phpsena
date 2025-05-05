@@ -13,12 +13,14 @@ class ModeloProducto {
         $stmt->bindParam(":precio", $datos["precio"], PDO::PARAM_STR);
 
         if ($stmt->execute()) {
+            $stmt = null;
             return "ok";
         } else {
+            $stmt = null;
             return "error";
         }
+        
 
-        $stmt = null;
     }
 
 }
