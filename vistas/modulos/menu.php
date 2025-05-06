@@ -33,13 +33,13 @@
 
             <?php if(isset($_GET["modulo"])):?>
                 
-                <?php if($_GET["modulo"]== "inicio") ?>
+                <?php if($_GET["modulo"]== "contenido") ?>
                 <li class="nav-item">
-                    <a href="index.php?modulo=inicio" class="nav-link active">Inicio</a>
+                    <a href="index.php?modulo=contenido" class="nav-link active">Inicio</a>
                 </li>
                 <?php else: ?>
                     <li class="nav-item">
-                    <a href="index.php?modulo=inicio" class="nav-link">Inicio</a>
+                    <a href="index.php?modulo=contenido" class="nav-link">Inicio</a>
                 </li>
                 <?php endif ?>
 

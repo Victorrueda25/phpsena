@@ -16,7 +16,7 @@
                                 </span>
                             </div>
             
-                            <input type="text" class="form-control" id="nombre" name="registroNombre">
+                            <input type="text" class="form-control" id="nombre" name="ingresoEmail">
             
                         </div>
                         
@@ -42,10 +42,12 @@
                     <button type="submit" class="btn btn-primary mt-2">Ingresar</button>
                 </form>
 
-                <?php 
-                $ingreso = new ControladorRegistro();
-                $ingresar->ctrIngresar();
-                ?>
+        <?php
+
+            $ingresar = new ControladorRegistro();
+            $ingresar->ctrIngreso(); // <--- si este es el método correcto
+
+        ?>
 
             </div>
 
