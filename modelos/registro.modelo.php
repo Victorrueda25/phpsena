@@ -25,6 +25,8 @@ class ModeloRegistro {
         return $ok ? "ok" : "error";
     }
 
+    
+
     /*=============================================
     Seleccionar Registros
     =============================================*/
@@ -76,7 +78,5 @@ class ModeloRegistro {
 
             return $dato;
         }
-
     }
-
 }

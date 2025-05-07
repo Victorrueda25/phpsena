@@ -5,7 +5,7 @@ include "modelos/registro.modelo.php";
 class ControladorRegistro{
 
     /*
-    Metodo agregar registro
+    Método agregar registro
     */
     static public function ctrRegistro(){
 
@@ -17,7 +17,7 @@ class ControladorRegistro{
                 "nombre" => $_POST["registroNombre"],
                 "telefono" => $_POST["registroTelefono"],
                 "correo" => $_POST["registroEmail"],
-                "clave" => $_POST["registroPassword"]            
+                "clave" => password_hash($_POST["registroPassword"], PASSWORD_DEFAULT)
             );
 
             $respuesta = ModeloRegistro::mdlRegistro($tabla, $datos);
@@ -26,8 +26,20 @@ class ControladorRegistro{
         }
     }
 
-    /* 
-    Metodo ingresar
+    /*
+    Método seleccionar todos los registros
+    */
+    static public function ctrSeleccionarRegistro(){
+
+        $tabla = "personas";
+
+        $respuesta = ModeloRegistro::mdlSeleccionarRegistro($tabla, null, null);
+
+        return $respuesta;
+    }
+
+    /*
+    Método ingresar (login) con verificación de contraseña
     */
     static public function ctrIngreso(){
 
@@ -39,37 +51,31 @@ class ControladorRegistro{
 
             $respuesta = ModeloRegistro::mdlSeleccionarRegistro($tabla, $item, $valor);
 
-            if($respuesta["pers_correo"] == $_POST["ingresoEmail"] && $respuesta["pers_clave"] == $_POST["ingresoPasword"]){
+            if($respuesta &&
+               $respuesta["pers_correo"] == $_POST["ingresoEmail"] &&
+               password_verify($_POST["ingresoPassword"], $respuesta["pers_clave"])){
+
+                session_start();
+
                 $_SESSION["validarIngreso"] = "ok";
 
                 echo '<script>
-                    if ( window.history.replaceState ) {
-                        window.history.replaceState( null, null, window.location.href );
+                    if (window.history.replaceState) {
+                        window.history.replaceState(null, null, window.location.href);
                     }
-                    window.location = "index.php?pagina=inicio";
+                    window.location = "index.php?modulo=contenido";
                 </script>';
+
             } else {
                 echo '<script>
-                    if ( window.history.replaceState ) {
-                        window.history.replaceState( null, null, window.location.href );
+                    if (window.history.replaceState) {
+                        window.history.replaceState(null, null, window.location.href);
                     }
                 </script>';
 
-                echo '<div class="alert alert-success">la contraseña no es valida</div>';
+                echo '<div class="alert alert-danger">Correo o contraseña incorrectos</div>';
             }
         }
     }
 
-    // Método crtIngreso corregido
-    public function crtIngreso(){
-        $tabla = "personas";
-
-        $item = "pers_correo";
-        $valor = $_POST["ingresoCorreo"]; // CORREGIDO: antes era $_POST("ingresoCorreo");
-
-        $respuesta = ModeloRegistro::mdlSeleccionarRegistro($tabla, $item, $valor); // CORREGIDO: faltaba ;
-
-        return $respuesta; // CORREGIDO: faltaba ;
-    }
-
-} // Aquí se cierra la clase correctamente.
+} // Fin de la clase
