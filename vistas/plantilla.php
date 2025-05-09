@@ -28,9 +28,10 @@
                         $_GET["modulo"] == "contenido" ||
                         $_GET["modulo"] == "producto" ||
                         $_GET["modulo"] == "perfil" ||
+                        $_GET["modulo"] == "Actualizar" ||
                         $_GET["modulo"] == "salir"
                     ) {
-                        include "modulos/" . $_GET["modulo"] . ".php";
+                        include "modulos/" . $_GET["modulo"].".php";
                     } else {
                         include "modulos/error404.php";
                     }
