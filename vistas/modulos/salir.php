@@ -1,1 +1,1 @@
-<h1>Saliendo de la aplicación</h1>
+<?php session_destroy(); 

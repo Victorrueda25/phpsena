@@ -1,3 +1,15 @@
+<?php 
+
+    session_start();
+    if (!isset($_SESSION["validarIngreso"]) || $_SESSION["validarIngreso"] !== "ok"){
+        header("Location: index.php?modulo=ingreso");
+        exit;
+
+    }
+        //Obtenemos todos los registros de la tabla registros"
+        $registros = ControladorRegistro::ctrSeleccionarRegistro();
+        //var_dump($registros)
+    ?>
 
 <div class="container-fluid">
 		
@@ -88,14 +100,15 @@
                             </span>
 
                         </div>
+
             
                         <input type="password" class="form-control" id="clave" name="actualizarClave">
             
                     </div>
             
                 </div>
-            
-                <?php
+
+                 <?php
 
                     /*=============================================
                     FORMA EN QUE SE INSTA­NCIA LA CLASE DE UN MÉTODO ESTÁTICO
@@ -119,8 +132,6 @@
                     }
 
                 ?>
-
-
 
                 <button type="submit" class="btn btn-primary">Actualizar</button>
             

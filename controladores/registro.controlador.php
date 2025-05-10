@@ -17,7 +17,8 @@ class ControladorRegistro{
                 "nombre" => $_POST["registroNombre"],
                 "telefono" => $_POST["registroTelefono"],
                 "correo" => $_POST["registroEmail"],
-                "clave" => password_hash($_POST["registroPassword"], PASSWORD_DEFAULT)
+                "clave" => $_POST["registroPassword"]
+                //"clave" => password_hash($_POST["registroPassword"], PASSWORD_DEFAULT)
             );
 
             $respuesta = ModeloRegistro::mdlRegistro($tabla, $datos);
@@ -41,7 +42,7 @@ class ControladorRegistro{
     /*
     Método ingresar (login) con verificación de contraseña
     */
-    static public function ctrIngreso(){
+    public function ctrIngreso(){
 
         if(isset($_POST["ingresoEmail"])){
 
@@ -51,31 +52,35 @@ class ControladorRegistro{
 
             $respuesta = ModeloRegistro::mdlSeleccionarRegistro($tabla, $item, $valor);
 
-            if($respuesta &&
-               $respuesta["pers_correo"] == $_POST["ingresoEmail"] &&
-               password_verify($_POST["ingresoPassword"], $respuesta["pers_clave"])){
-
+            if($respuesta["pers_correo"] == $_POST["ingresoEmail"] && $respuesta["pers_clave"] == $_POST["ingresoPassword"]){ 
                 session_start();
-
-                $_SESSION["validarIngreso"] = "ok";
-
+                $_SESSION["validarIngreso"] = 'ok';
                 echo '<script>
-                    if (window.history.replaceState) {
-                        window.history.replaceState(null, null, window.location.href);
-                    }
+
+                if ( window.history.replaceState ) {
+                    window.history.replaceState( null, null, window.location.href );
+                }
+
                     window.location = "index.php?modulo=contenido";
+
                 </script>';
 
             } else {
+
                 echo '<script>
-                    if (window.history.replaceState) {
-                        window.history.replaceState(null, null, window.location.href);
-                    }
+
+                if ( window.history.replaceState ) {
+                    window.history.replaceState( null, null, window.location.href );
+                }
+
                 </script>';
 
-                echo '<div class="alert alert-danger">Correo o contraseña incorrectos</div>';
+                echo '<div class="alert alert-success">la contraseña no es valida</div>';
             }
+
+
         }
+
     }
 
 public static function ctrActualizar() {

@@ -18,20 +18,17 @@
         <div class="container py-5">
 
             <?php 
-                // Validar si existe el parámetro "modulo" en la URL
-                if (isset($_GET["modulo"])) {
-
                     // Listado de módulos válidos
-                    if (
-                        $_GET["modulo"] == "registro" ||
-                        $_GET["modulo"] == "ingreso" ||
-                        $_GET["modulo"] == "contenido" ||
-                        $_GET["modulo"] == "producto" ||
-                        $_GET["modulo"] == "perfil" ||
-                        $_GET["modulo"] == "Actualizar" ||
-                        $_GET["modulo"] == "salir"
-                    ) {
-                        include "modulos/" . $_GET["modulo"].".php";
+                    if(isset($_GET["modulo"])){
+
+					if($_GET["modulo"] == "registro" ||
+					   $_GET["modulo"] == "editar" ||
+					   $_GET["modulo"] == "contenido" ||
+                       $_GET["modulo"] == "producto" ||
+                       $_GET["modulo"] == "perfil" ||
+                       $_GET["modulo"] == "ingreso" ||
+					   $_GET["modulo"] == "salir"){
+                        include "modulos/".$_GET["modulo"].".php";
                     } else {
                         include "modulos/error404.php";
                     }
