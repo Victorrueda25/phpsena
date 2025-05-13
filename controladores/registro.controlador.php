@@ -52,8 +52,8 @@ class ControladorRegistro{
 
             $respuesta = ModeloRegistro::mdlSeleccionarRegistro($tabla, $item, $valor);
 
-            if($respuesta["pers_correo"] == $_POST["ingresoEmail"] && $respuesta["pers_clave"] == $_POST["ingresoPassword"]){ 
-                session_start();
+            if($respuesta["pers_correo"] == $_POST["ingresoEmail"] && $respuesta["pers_clave"] == $_POST["ingresoClave"]){ 
+                
                 $_SESSION["validarIngreso"] = 'ok';
                 echo '<script>
 

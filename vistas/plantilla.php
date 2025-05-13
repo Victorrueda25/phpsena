@@ -18,6 +18,21 @@
         <div class="container py-5">
 
             <?php 
+
+            session_start();
+
+                    $modulo = isset($_GET['modulo']) ? $_GET['modulo'] : 'ingreso';
+
+                    if (!isset($_SESSION["validarIngreso"]) || $_SESSION["validarIngreso"] !== "ok") {
+                        
+                        if ($modulo === 'ingreso' || $modulo === 'registro') {
+                            include "modulos/{$modulo}.php";
+                            exit;
+                        }
+
+                        header("Location: index.php?modulo=ingreso");
+                        exit;
+                    }
                     // Listado de módulos válidos
                     if(isset($_GET["modulo"])){
 

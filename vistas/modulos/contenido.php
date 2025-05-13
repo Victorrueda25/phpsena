@@ -1,5 +1,4 @@
 <?php
-session_start();
 if (!isset($_SESSION["validarIngreso"]) || $_SESSION["validarIngreso"] !== "ok") {
     header("Location: index.php?modulo=ingreso");
     exit;
